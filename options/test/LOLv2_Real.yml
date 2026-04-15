@@ -1,0 +1,29 @@
+# some params are needed to work but are not really used in testing
+#### datasets
+datasets:
+  name: lolv2_Real_captured
+  train:
+    n_workers: 4  # per GPU
+    verbose: True
+  val:
+    test_path: ./data/datasets/ # 替换为你实际的LOLv2测试集低光图路径
+    batch_size_test: 1
+
+#### network structures
+network:
+  name: DarkIR
+  resume_training: True
+  img_channels: 3
+  width: 32
+  middle_blk_num_enc: 2
+  middle_blk_num_dec: 2
+  enc_blk_nums: [1, 2, 3]
+  dec_blk_nums: [3, 1, 1]
+  dilations: [1, 4, 9]
+  extra_depth_wise: True
+
+#### model weights
+save:
+  path: ./train/experiments/DarkIR/models/net_g_335000.pth # 替换为你实际的权重路径
+
+Resize: False

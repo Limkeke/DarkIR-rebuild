@@ -1,0 +1,123 @@
+# ------------------------------------------------------------------------
+# Copyright (c) 2022 megvii-model. All Rights Reserved.
+# ------------------------------------------------------------------------
+# Modified from BasicSR (https://github.com/xinntao/BasicSR)
+# Copyright 2018-2020 BasicSR Authors
+# ------------------------------------------------------------------------
+# general settings
+name: LOLv2-Synthetic
+model_type: ImageRestorationModel
+scale: 1
+num_gpu: 1
+manual_seed: 10
+
+datasets:
+  train:
+    name: lolv2-train
+    type: PairedImageDataset
+    dataroot_gt: data/datasets/LOL-v2/Synthetic/train/Normal
+    dataroot_lq: data/datasets/LOL-v2/Synthetic/train/Low
+
+    filename_tmpl: '{}'
+    io_backend:
+      type: disk
+
+    gt_size: 256
+    use_flip: true
+    use_rot: true
+
+    # data loader
+    use_shuffle: true
+    num_worker_per_gpu: 4
+    batch_size_per_gpu: 4
+    dataset_enlarge_ratio: 1
+    prefetch_mode: ~
+
+  val:
+    name: lolv2-test
+    type: PairedImageDataset
+    dataroot_gt: data/datasets/LOL-v2/Synthetic/test/Normal
+    dataroot_lq: data/datasets/LOL-v2/Synthetic/test/Low
+    io_backend:
+      type: disk
+
+
+network_g:
+  type: DarkIR
+  width: 32
+  middle_blk_num_enc: 2
+  middle_blk_num_dec: 2
+  enc_blk_nums: [ 1, 2, 3 ]
+  dec_blk_nums: [ 3, 1, 1 ]
+  dilations: [ 1, 4, 9 ]
+  extra_depth_wise: True
+
+# path
+path:
+  pretrain_network_g: ~
+  strict_load_g: false
+  resume_state: ~
+
+# training settings
+train:
+  optim_g:
+    type: AdamW
+    lr: !!float 1e-3
+    weight_decay: !!float 1e-3
+    betas: [0.9, 0.9]
+
+  scheduler:
+    type: TrueCosineAnnealingLR
+    T_max: 400000
+    eta_min: !!float 1e-7
+
+  total_iter: 400000
+  warmup_iter: -1 # no warm up
+
+# losses
+pixel_criterion: l1
+
+perceptual: True
+perceptual_weight: 0.01
+perceptual_criterion: l1
+perceptual_reduction: mean
+
+edge: True
+edge_weight: 50
+edge_criterion: l2
+edge_reduction: mean
+
+enhance: True
+enhance_weight: 1
+enhance_criterion: l1
+enhance_reduction: mean
+
+# validation settings
+val:
+  val_freq: 200
+  save_img: false
+
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: false
+    ssim:
+      type: calculate_ssim
+      crop_border: 0
+      test_y_channel: false
+
+# logging settings
+logger:
+  print_freq: 100
+  save_checkpoint_freq: 5000
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29500

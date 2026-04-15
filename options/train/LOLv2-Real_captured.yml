@@ -5,7 +5,7 @@
 # Copyright 2018-2020 BasicSR Authors
 # ------------------------------------------------------------------------
 # general settings
-name: DarkIR
+name: LOLv2-Real_captured
 model_type: ImageRestorationModel
 scale: 1
 num_gpu: 1
@@ -15,8 +15,8 @@ datasets:
   train:
     name: lolv2-train
     type: PairedImageDataset
-    dataroot_gt: data/datasets/LOL-v2/Synthetic/train/Normal
-    dataroot_lq: data/datasets/LOL-v2/Synthetic/train/Low
+    dataroot_gt: data/datasets/LOL-v2/Real_captured/train/Normal
+    dataroot_lq: data/datasets/LOL-v2/Real_captured/train/Low
 
     filename_tmpl: '{}'
     io_backend:
@@ -36,8 +36,8 @@ datasets:
   val:
     name: lolv2-test
     type: PairedImageDataset
-    dataroot_gt: data/datasets/LOL-v2/Synthetic/test/Normal
-    dataroot_lq: data/datasets/LOL-v2/Synthetic/test/Low
+    dataroot_gt: data/datasets/LOL-v2/Real_captured/test/Normal
+    dataroot_lq: data/datasets/LOL-v2/Real_captured/test/Low
     io_backend:
       type: disk
 
@@ -62,7 +62,7 @@ path:
 train:
   optim_g:
     type: AdamW
-    lr: !!float 1e-3
+    lr: !!float 5e-4  #建议修改，学习率稍微降低（Real 更难训）
     weight_decay: !!float 1e-3
     betas: [0.9, 0.9]
 
