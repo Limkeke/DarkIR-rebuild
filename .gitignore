@@ -1,0 +1,55 @@
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+# 模型权重 / 检查点（绝对不能上传！）
+*.pth
+*.pt
+*.ckpt
+*.bin
+*.state
+*.pkl
+
+# 数据集 / 大文件
+/data/datasets/
+datasets/
+autodl-tmp/
+/all_imgs/
+/outputs/
+
+# 实验日志 / 训练文件
+logs/
+wandb/
+train/experiments/
+experiments/
+*.log
+*.csv
+
+# 视频 / 图片
+*.mp4
+*.avi
+*.mov
+*.png
+*.jpg
+*.jpeg
+*.bmp
+
+# 无用文件
+.DS_Store
+*.zip
+*.rar
+*.7z
+*.tmp
+*.py~
+
+# 废弃代码
+OLD_models/
+/utils_detection/
+/archs/nafnet_utils/
+/archs/nafnet.py
+/archs/lednet.py
+/archs/mimo.py
+/archs/lednet_archs/
