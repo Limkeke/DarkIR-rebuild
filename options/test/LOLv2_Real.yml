@@ -1,7 +1,7 @@
 # some params are needed to work but are not really used in testing
 #### datasets
 datasets:
-  name: lolv2_Real_captured
+  name: lolv2_real
   train:
     n_workers: 4  # per GPU
     verbose: True
@@ -24,6 +24,6 @@ network:
 
 #### model weights
 save:
-  path: ./train/experiments/DarkIR/models/net_g_335000.pth # 替换为你实际的权重路径
+  path: ./train/experiments/LOLv2-Real_captured/models/net_g_120000.pth # 替换为你实际的权重路径
 
 Resize: False

@@ -9,6 +9,7 @@ from .dataset_reader.dataset_npe import main_dataset_npe
 from .dataset_reader.dataset_vv import main_dataset_vv
 from .dataset_reader.dataset_exdark import main_dataset_exdark
 from .dataset_reader.dataset_lolv2_synth import main_dataset_lolv2_synth
+from .dataset_reader.dataset_lolv2_real import main_dataset_lolv2_real
 
 def create_test_data(rank, world_size, opt):
     '''
@@ -37,6 +38,13 @@ def create_test_data(rank, world_size, opt):
                                                 verbose=opt['train']['verbose'],
                                                 num_workers=opt['train']['n_workers'],
                                                 world_size=world_size)
+    elif name == 'lolv2_real':
+        test_loader, samplers = main_dataset_lolv2_real(rank=rank,
+                                                test_path=opt['val']['test_path'],
+                                                batch_size_test=opt['val']['batch_size_test'],
+                                                verbose=opt['train']['verbose'],
+                                                num_workers=opt['train']['n_workers'],
+                                                world_size=world_size)   
     elif name == 'All_LOL':
         test_loader, samplers = main_dataset_all_lol(rank=rank, 
                                                 test_path = test_path,

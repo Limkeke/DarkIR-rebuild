@@ -10,7 +10,7 @@ except:
     from datapipeline import *
     from utils import *
 
-def main_dataset_lolv2_real_captured(rank = 1, test_path='../../data/datasets/', batch_size_test=1, verbose=False,
+def main_dataset_lolv2_real(rank = 1, test_path='../../data/datasets/', batch_size_test=1, verbose=False,
                        num_workers=1, world_size = 1):
 
     PATH_VALID = os.path.join(test_path, 'LOL-v2/Real_captured', 'test')
