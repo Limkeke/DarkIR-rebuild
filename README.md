@@ -84,13 +84,13 @@ PYTHONPATH=/root/DarkIR-main/train python train/basicsr/train.py -opt options/tr
 ### 1.LOLv2-Real_captured完成测试后，执行以下命令启动测试：
 ```bash
 cd /root/DarkIR-main
-python testing.py -p options/test/LOLv2_Syn.yml
+python testing.py -p options/test/LOLv2_Real.yml
 ```
 
 ### 2.测试 LOLv2-Syn 合成数据集
 ```bash
 cd /root/DarkIR-main
-python testing.py -p options/test/LOLv2_Real.yml
+python testing.py -p options/test/LOLv2_Syn.yml
 ```
 ---
 

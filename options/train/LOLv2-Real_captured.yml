@@ -28,8 +28,8 @@ datasets:
 
     # data loader
     use_shuffle: true
-    num_worker_per_gpu: 4
-    batch_size_per_gpu: 4
+    num_worker_per_gpu: 8      # 充分利用 10 核 CPU
+    batch_size_per_gpu: 8
     dataset_enlarge_ratio: 1
     prefetch_mode: ~
 
@@ -62,8 +62,8 @@ path:
 train:
   optim_g:
     type: AdamW
-    lr: !!float 5e-4  #建议修改，学习率稍微降低（Real 更难训）
-    weight_decay: !!float 1e-3
+    lr: !!float 2e-4  #建议修改，学习率稍微降低（Real 更难训）
+    weight_decay: !!float 1e-4 # 适当的权重衰减防止过拟合
     betas: [0.9, 0.9]
 
   scheduler:
@@ -72,18 +72,20 @@ train:
     eta_min: !!float 1e-7
 
   total_iter: 400000
-  warmup_iter: -1 # no warm up
+  warmup_iter: 5000            # 增加预热步数，让模型慢慢适应真实噪声分布
 
 # losses
 pixel_criterion: l1
 
+# 冲击高分的关键：增强感知损失约束，有助于提升 SSIM 和视觉细节
 perceptual: True
-perceptual_weight: 0.01
+perceptual_weight: 0.1         # 权重从 0.01 提到 0.1
 perceptual_criterion: l1
 perceptual_reduction: mean
 
+# 降低边缘损失权重。Real 数据集噪声大，权重太高会让模型去“还原”噪声边缘
 edge: True
-edge_weight: 50
+edge_weight: 5
 edge_criterion: l2
 edge_reduction: mean
 

@@ -2,6 +2,7 @@
 #### datasets
 datasets:
   name: lolv2_real
+  test_y_channel: true
   train:
     n_workers: 4  # per GPU
     verbose: True
@@ -24,6 +25,9 @@ network:
 
 #### model weights
 save:
-  path: ./train/experiments/LOLv2-Real_captured/models/net_g_120000.pth # 替换为你实际的权重路径
+  # path: ./train/experiments/LOLv2-Real_captured/models/net_g_120000.pth # 替换为你实际的权重路径
+  # path: ./train/experiments/LOLv2-Real_captured/models/best_model.pth # 替换为你实际的权重路径
+  # path: ./train/experiments/LOLv2-Real_captured/models/net_g_105000.pth
+  path: ./train/experiments/LOLv2-Real_captured/models/best_model.pth
 
 Resize: False

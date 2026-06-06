@@ -157,17 +157,17 @@ class MyDataset_Crop(Dataset):
                 rgb_high, rgb_low = self.center_crop(rgb_high), self.center_crop(rgb_low)
     
     # # 测试原darkIR时要注释掉此内容
-        return rgb_high, rgb_low
+        # return rgb_high, rgb_low
 
         #测试原darkIR时要用此内容
-        # img_low_path = self.imgs_low[idx] # 获取原始路径字符串
+        img_low_path = self.imgs_low[idx] # 获取原始路径字符串
         
-        # # 将返回结果封装为字典
-        # return {
-        #     'lq': rgb_low,          # 低光图像 Tensor
-        #     'gt': rgb_high,         # 高光（真值）图像 Tensor
-        #     'lq_path': img_low_path # 原始文件路径
-        # }
+        # 将返回结果封装为字典
+        return {
+            'lq': rgb_low,          # 低光图像 Tensor
+            'gt': rgb_high,         # 高光（真值）图像 Tensor
+            'lq_path': img_low_path # 原始文件路径
+        }
 
 if __name__== '__main__':
     tensor = torch.rand([1, 3, 1000, 1000])

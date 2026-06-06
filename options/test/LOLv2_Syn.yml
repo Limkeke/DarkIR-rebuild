@@ -24,6 +24,9 @@ network:
 
 #### model weights
 save:
-  path: ./train/experiments/DarkIR/models/net_g_335000.pth # 替换为你实际的权重路径
-
+  # path: ./train/experiments/DarkIR/models/net_g_335000.pth # 替换为你实际的权重路径
+  #path: ./train/experiments/LOLv2-Syn-rebuild/net_g_140000.pth # 重构后的最优模型
+  # path: ./train/experiments/LOLv2-Synthetic/models/best_model.pth
+  #path: ./train/experiments/DarkIR/models/net_g_100000.pth 
+  path: ./train/experiments/DarkIR/models/net_g_150000.pth
 Resize: False

@@ -276,7 +276,12 @@ class BaseModel():
         load_net = torch.load(
             load_path, map_location=lambda storage, loc: storage)
         if param_key is not None:
-            load_net = load_net[param_key]
+            load_net = torch.load(load_path, map_location='cpu')
+
+            if isinstance(load_net, dict) and 'params' in load_net:
+                weights = load_net['params']
+            else:
+                weights = load_net
         print(' load net keys', load_net.keys)
         # remove unnecessary 'module.'
         for k, v in deepcopy(load_net).items():

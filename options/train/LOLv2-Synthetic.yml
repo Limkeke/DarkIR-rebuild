@@ -56,14 +56,16 @@ network_g:
 path:
   pretrain_network_g: ~
   strict_load_g: false
-  resume_state: ~
+  resume_state: ./train/experiments/LOLv2-Synthetic/training_states/140000.state
 
 # training settings
 train:
   optim_g:
     type: AdamW
-    lr: !!float 1e-3
-    weight_decay: !!float 1e-3
+    # 优化前的lr: !!float 1e-3
+    lr: !!float 2e-4
+    # 优化前的weight_decay: !!float 1e-3
+    weight_decay: !!float 1e-4
     betas: [0.9, 0.9]
 
   scheduler:
@@ -72,7 +74,8 @@ train:
     eta_min: !!float 1e-7
 
   total_iter: 400000
-  warmup_iter: -1 # no warm up
+  # 优化前的warmup_iter: -1 # no warm up
+  warmup_iter: 3000
 
 # losses
 pixel_criterion: l1
